@@ -22,14 +22,15 @@ def create(request: schemas.Task, db: Session= Depends(get_db)):
     return new_task
 
 @app.put('/tasks/{id}')
-def update(task_id: int, request: schemas.Task, db: Session= Depends(get_db)):
+def update(task_id: int, request: schemas.UpdateTask, db: Session= Depends(get_db)):
     updated = db.query(models.Task).filter(task_id == models.Task.id)
     if not updated.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")
     updated.update(
         {
             "title": request.title,
-            "location": request.location
+            "location": request.location,
+            "completed": request.completed
         }
     )
     db.commit()
