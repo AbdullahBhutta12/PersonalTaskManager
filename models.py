@@ -6,4 +6,3 @@ class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     location = Column(String)
-    completed = Column(BOOLEAN, default=False)

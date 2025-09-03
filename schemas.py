@@ -1,11 +1,10 @@
-from pydantic import BaseModel
-
+from pydantic import BaseModel, ConfigDict
+from typing import List
 
 class Task(BaseModel):
     title: str
     location: str
 
-class UpdateTask(BaseModel):
-    title: str
-    location: str
-    completed: bool
+class ShowTask(BaseModel):
+    tasks: List[Task]
+    model_config = ConfigDict(from_attributes=True)
