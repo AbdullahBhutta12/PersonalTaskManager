@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 import schemas
 import models
@@ -19,20 +19,9 @@ def get_all(db: Session = Depends(get_db)):
 def create(request: schemas.Task, db: Session= Depends(get_db)):
     return task.create(request, db)
 
-# @router.put('/update_task')
-# def update(task_id: int, request: schemas.UpdateTask, db: Session= Depends(get_db)):
-#     updated = db.query(models.Task).filter(task_id == models.Task.id)
-#     if not updated.first():
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")
-#     updated.update(
-#         {
-#             "title": request.title,
-#             "location": request.location,
-#             "completed": request.completed
-#         }
-#     )
-#     db.commit()
-#     return "Task update"
+# @router.put('/update_task/{id}')
+# def updated(task_id: int, request: schemas.Task, db: Session= Depends(get_db)):
+#     return task.updated(task_id, db, request)
 
 @router.delete('/delete_task', status_code=status.HTTP_204_NO_CONTENT)
 def delete(task_id: int, db: Session= Depends(get_db)):

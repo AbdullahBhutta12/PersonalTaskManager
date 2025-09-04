@@ -1,9 +1,9 @@
-from fastapi import Depends
+from email.policy import default
+
 from sqlalchemy.orm import Session
 import schemas
 from fastapi import HTTPException, status
 import models
-from database import *
 
 
 
@@ -12,23 +12,23 @@ def get_all(db: Session):
     return tasks
 
 def create(request: schemas.Task, db: Session):
-    new_task = models.Task(title=request.title, location=request.location)
+    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False)
     db.add(new_task)
     db.commit()
     db.refresh(new_task)
     return new_task
 
-# def update(task_id: int, request: schemas.UpdateTask, db: Session= Depends(get_db)):
-#     updated = db.query(models.Task).filter(task_id == models.Task.id)
-#     if not updated.first():
+# def updated(task_id: int, db: Session, request: schemas.Task):
+#     tasks = db.query(models.Task).filter(task_id == models.Task.id).first()
+#     if not tasks:
 #         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")
-#     updated.update(
+#     tasks.update(
 #         {
 #             "title": request.title,
+#             "description": request.description,
 #             "location": request.location,
-#             "completed": request.completed
-#         }
-#     )
+#             "completed": default
+#     }, synchronize_session=False)
 #     db.commit()
 #     return "Task update"
 
