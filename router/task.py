@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 import schemas
-import models
-from database import *
+import database
 from typing import List
 from repository import task
 
@@ -12,19 +11,19 @@ router = APIRouter(
 )
 
 @router.get('/', response_model=List[schemas.Task])
-def get_all(db: Session = Depends(get_db)):
+def get_all(db: Session = Depends(database.get_db)):
     return task.get_all(db)
 
 @router.post('/create_task', status_code=status.HTTP_201_CREATED)
-def create(request: schemas.Task, db: Session= Depends(get_db)):
+def create(request: schemas.Task, db: Session= Depends(database.get_db)):
     return task.create(request, db)
 
-# @router.put('/update_task/{id}')
-# def updated(task_id: int, request: schemas.Task, db: Session= Depends(get_db)):
-#     return task.updated(task_id, db, request)
+@router.put('/update_task')
+def updated(task_id: int, completed: bool= True, db: Session= Depends(database.get_db)):
+    return task.updated(task_id, db, completed)
 
 @router.delete('/delete_task', status_code=status.HTTP_204_NO_CONTENT)
-def delete(task_id: int, db: Session= Depends(get_db)):
+def delete(task_id: int, db: Session= Depends(database.get_db)):
     return task.delete(task_id, db)
 
 # //  POST http://0.0.0.0:8000/tasks/create_task

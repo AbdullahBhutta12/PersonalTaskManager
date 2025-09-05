@@ -1,9 +1,11 @@
 from fastapi import FastAPI
-from router import task
+
 import models
-from database import *
+import database
+from router import task, event
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=database.engine)
 
 app.include_router(task.router)
+app.include_router(event.router)
