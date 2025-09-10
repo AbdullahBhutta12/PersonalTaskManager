@@ -18,7 +18,7 @@ def get_all(db: Session = Depends(database.get_db)):
 def create(request: schemas.Task, db: Session= Depends(database.get_db)):
     return task.create(request, db)
 
-@router.put('/update_task')
+@router.put('/update_task/{task_id}')
 def updated(task_id: int, completed: bool= True, db: Session= Depends(database.get_db)):
     return task.updated(task_id, db, completed)
 

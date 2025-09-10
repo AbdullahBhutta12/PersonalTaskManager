@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy.orm import Session
 import schemas
 from fastapi import HTTPException, status
@@ -15,6 +17,21 @@ def create(request: schemas.Event, db: Session):
     db.commit()
     db.refresh(new_event)
     return new_event
+
+def updated(event_id: int, db: Session, request: schemas.Event):
+    events = db.query(models.Event).filter(event_id == models.Event.id)
+    if not events.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Event with id {event_id} not found")
+    events.update(
+        {
+        "event_name": request.event_name,
+        "location":request.location,
+        "event_date":request.event_date,
+        "event_time":request.event_time
+    }, synchronize_session=False)
+    db.commit()
+    # db.refresh(events)
+    return "Event updated"
 
 def delete(event_id: int, db: Session):
     deleted = db.query(models.Event).filter(event_id == models.Event.id)
