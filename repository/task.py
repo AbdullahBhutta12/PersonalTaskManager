@@ -16,14 +16,14 @@ def create(request: schemas.Task, db: Session):
     db.refresh(new_task)
     return new_task
 
-def updated(task_id: int, db: Session, completed: bool= True):
+def updated(task_id: int, db: Session, completed: bool):
     tasks = db.query(models.Task).filter(task_id == models.Task.id).first()
     if not tasks:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")
     tasks.completed= completed
     db.commit()
     db.refresh(tasks)
-    return "Task update"
+    return {status.HTTP_200_OK, "Task update"}
 
 def delete(task_id: int, db: Session):
     deleted = db.query(models.Task).filter(task_id == models.Task.id)
@@ -31,4 +31,4 @@ def delete(task_id: int, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")
     deleted.delete(synchronize_session=False)
     db.commit()
-    return {status.HTTP_200_OK}
+    return {status.HTTP_200_OK, "Deleted"}
