@@ -1,7 +1,9 @@
-from sqlalchemy.orm import Session
-import schemas
 from fastapi import HTTPException, status
+
+import schemas
 import models
+
+from sqlalchemy.orm import Session
 
 
 

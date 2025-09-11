@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import date, time
 
+
 class Task(BaseModel):
     id: int
     title: str
