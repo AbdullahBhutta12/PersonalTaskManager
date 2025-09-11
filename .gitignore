@@ -218,3 +218,4 @@ __marimo__/
 __pycache__
 .idea/
 .venv/
+database.db/
