@@ -216,5 +216,5 @@ __marimo__/
 .streamlit/secrets.toml
 
 __pycache__
-.idea
-.venv
+.idea/
+.venv/
