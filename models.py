@@ -16,5 +16,12 @@ class Event(Base):
     id = Column(Integer, primary_key=True, index=True)
     event_name = Column(String)
     location = Column(String)
-    event_date = Column(Date)
-    event_time = Column(Time)
+    event_date = Column(String)
+    event_time = Column(String)
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    email = Column(String)
+    password = Column(String)
