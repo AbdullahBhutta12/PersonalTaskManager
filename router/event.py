@@ -25,8 +25,8 @@ def create(request: schemas.Event, db: Session = Depends(database.get_db)):
 
 
 @router.put('/update_event/{event_id}')
-def updated(event_id: int, request: schemas.Event, db: Session = Depends(database.get_db)):
-    return event.updated(event_id, db, request)
+def update(event_id: int, request: schemas.Event, db: Session = Depends(database.get_db)):
+    return event.update(event_id, db, request)
 
 
 @router.delete('/delete_event/{event_id}', status_code=status.HTTP_204_NO_CONTENT)

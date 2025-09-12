@@ -9,3 +9,7 @@ def create(request: schemas.CreateUser, db: Session):
     db.commit()
     db.refresh(new_user)
     return new_user
+
+def show_user(db: Session):
+    user = db.query(models.User).all()
+    return user

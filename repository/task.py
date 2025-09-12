@@ -18,7 +18,7 @@ def create(request: schemas.Task, db: Session):
     db.refresh(new_task)
     return new_task
 
-def updated(task_id: int, db: Session, completed: bool):
+def update(task_id: int, db: Session, completed: bool):
     tasks = db.query(models.Task).filter(task_id == models.Task.id).first()
     if not tasks:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with id {task_id} not found")

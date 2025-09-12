@@ -20,7 +20,7 @@ def create(request: schemas.Event, db: Session):
     return new_event
 
 
-def updated(event_id: int, db: Session, request: schemas.Event):
+def update(event_id: int, db: Session, request: schemas.Event):
     events = db.query(models.Event).filter(event_id == models.Event.id)
     if not events.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Event with id {event_id} not found")

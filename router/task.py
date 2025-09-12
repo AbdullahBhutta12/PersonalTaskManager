@@ -24,8 +24,8 @@ def create(request: schemas.Task, db: Session = Depends(database.get_db)):
 
 
 @router.put('/update_task/{task_id}')
-def updated(task_id: int, completed: bool, db: Session = Depends(database.get_db)):
-    return task.updated(task_id, db, completed)
+def update(task_id: int, completed: bool, db: Session = Depends(database.get_db)):
+    return task.update(task_id, db, completed)
 
 
 @router.delete('/delete_task/{task_id}', status_code=status.HTTP_204_NO_CONTENT)

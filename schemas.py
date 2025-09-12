@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from datetime import date, time
 
 
 class Task(BaseModel):
@@ -15,6 +14,7 @@ class Event(BaseModel):
     location: str
     event_date : str
     event_time: str
+
 
 class CreateUser(BaseModel):
     name: str
