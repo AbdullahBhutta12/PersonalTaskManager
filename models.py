@@ -1,7 +1,5 @@
-# from typing import List
-
-from sqlalchemy import Column, Integer, String, BOOLEAN#, ForeignKey
-# from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, BOOLEAN, ForeignKey
+from sqlalchemy.orm import relationship
 
 from database import Base
 
@@ -13,8 +11,9 @@ class Task(Base):
     description = Column(String)
     location = Column(String)
     completed = Column(BOOLEAN, default=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
 
-    # users: List[User]= relationship("User", back_populates="tasks")
+    users = relationship("User", back_populates="task")
 
 
 class Event(Base):
@@ -24,8 +23,9 @@ class Event(Base):
     location = Column(String)
     event_date = Column(String)
     event_time = Column(String)
+    user_id = Column(Integer, ForeignKey("users.id"))
 
-    # users: List[User]= relationship("User", back_populates="events")
+    users = relationship("User", back_populates="event")
 
 
 class User(Base):
@@ -35,8 +35,5 @@ class User(Base):
     email = Column(String)
     password = Column(String)
 
-    # task_id: int = Column(Integer, ForeignKey("tasks.id"))
-    # tasks: Task= relationship("Task", back_populates="users")
-    #
-    # event_id: int = Column(Integer ,ForeignKey("events.id"))
-    # events: Event = relationship("Event", back_populates="users")
+    task = relationship("Task", back_populates="users")
+    event = relationship("Event", back_populates="users")

@@ -12,7 +12,7 @@ def get_all(db: Session):
     return tasks
 
 def create(request: schemas.Task, db: Session):
-    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False)
+    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False, user_id=1)
     db.add(new_task)
     db.commit()
     db.refresh(new_task)

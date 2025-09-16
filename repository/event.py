@@ -13,7 +13,7 @@ def get_all(db: Session):
 
 def create(request: schemas.Event, db: Session):
     new_event = models.Event(event_name=request.event_name, location=request.location, event_date=request.event_date,
-                             event_time=request.event_time)
+                             event_time=request.event_time, user_id=1)
     db.add(new_event)
     db.commit()
     db.refresh(new_event)
