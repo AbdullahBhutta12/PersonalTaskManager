@@ -3,5 +3,5 @@ fastapi
 uvicorn
 sqlalchemy
 passlib
-bcrypt
+argon2
 python-jose

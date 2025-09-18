@@ -16,6 +16,8 @@ sss = sessionmaker(bind=engine, autoflush=False)
 def get_db():
     db = SessionLocal()
     try:
+        print("before db")
         yield db
+        print("after db")
     finally:
         db.close()

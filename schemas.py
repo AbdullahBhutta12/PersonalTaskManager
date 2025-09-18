@@ -9,6 +9,7 @@ class Task(BaseModel):
     description: str
     location: str
     completed: bool = False
+    model_config = ConfigDict(from_attributes=True)
 
 
 class Event(BaseModel):
@@ -17,32 +18,33 @@ class Event(BaseModel):
     location: str
     event_date: str
     event_time: str
+    model_config = ConfigDict(from_attributes=True)
 
 
-class CreateUser(BaseModel):
+class User(BaseModel):
     name: str
     email: str
     password: str
 
 
-class ShowUser(BaseModel):
-    name: str
-    email: str
-    tasks: List[Task]
-    events: List[Event]
-    model_config = ConfigDict(from_attributes=True)
-
-class ShowTask(BaseModel):
-    name: str
-    email: str
-    tasks: List[Task]
-    model_config = ConfigDict(from_attributes=True)
-
-class ShowEvent(BaseModel):
-    name: str
-    email: str
-    events: List[Event]
-    model_config = ConfigDict(from_attributes=True)
+# class ShowUser(BaseModel):
+#     name: str
+#     email: str
+#     tasks: List[Task]
+#     events: List[Event]
+#     model_config = ConfigDict(from_attributes=True)
+#
+# class ShowTask(BaseModel):
+#     name: str
+#     email: str
+#     tasks: List[Task]
+#     model_config = ConfigDict(from_attributes=True)
+#
+# class ShowEvent(BaseModel):
+#     name: str
+#     email: str
+#     events: List[Event]
+#     model_config = ConfigDict(from_attributes=True)
 
 class Login(BaseModel):
     username: str
