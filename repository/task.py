@@ -11,8 +11,8 @@ def get_all(db: Session):
     tasks = db.query(models.Task).all()
     return tasks
 
-def create(request: schemas.Task, db: Session):
-    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False, user_id=1)
+def create(request: schemas.Task, db: Session, current_user: schemas.User):
+    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False, user_id=current_user)
     db.add(new_task)
     db.commit()
     db.refresh(new_task)

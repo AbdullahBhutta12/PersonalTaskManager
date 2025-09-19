@@ -5,3 +5,40 @@ sqlalchemy
 passlib
 argon2
 python-jose
+# from fastapi import FastAPI, Depends, HTTPException, status
+# from sqlalchemy.orm import Session
+# from typing import List
+#
+# app = FastAPI()
+#
+# async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+#     user = db.query(User).filter(User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+#     return user
+#
+# @app.post("/tasks/", response_model=TaskSchema)
+# async def create_user_task(task_data: TaskCreateSchema, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+#     new_task = Task(**task_data.dict(), user_id=current_user.id)
+#     db.add(new_task)
+#     db.commit()
+#     db.refresh(new_task)
+#     return new_task
+#
+# @app.get("/tasks/", response_model=List[TaskSchema])
+# async def get_user_tasks(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+#     tasks = db.query(Task).filter(Task.user_id == current_user.id).all()
+#     return tasks
+#
+# @app.post("/events/", response_model=EventSchema)
+# async def create_user_event(event_data: EventCreateSchema, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+#     new_event = Event(**event_data.dict(), user_id=current_user.id)
+#     db.add(new_event)
+#     db.commit()
+#     db.refresh(new_event)
+#     return new_event
+#
+# @app.get("/events/", response_model=List[EventSchema])
+# async def get_user_events(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+#     events = db.query(Event).filter(Event.user_id == current_user.id).all()
+#     return events

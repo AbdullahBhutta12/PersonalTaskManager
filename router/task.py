@@ -20,7 +20,7 @@ def get_all(db: Session = Depends(database.get_db), current_user: schemas.User =
 
 @router.post('/create_task', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.Task, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return task.create(request, db)
+    return task.create(request, db, current_user)
 
 
 @router.put('/update_task/{task_id}')
