@@ -16,12 +16,12 @@ router = APIRouter(
 
 @router.get('/', response_model=List[schemas.Event])
 def get_all(db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return event.get_all(db)
+    return event.get_all(db, current_user)
 
 
 @router.post('/create_event', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.Event, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return event.create(request, db)
+    return event.create(request, db, current_user)
 
 
 @router.put('/update_event/{event_id}')

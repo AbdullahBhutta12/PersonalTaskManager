@@ -2,50 +2,38 @@ from typing import List
 
 from pydantic import BaseModel, ConfigDict
 
-
-class Task(BaseModel):
-    id: int
+class TaskBase(BaseModel):
     title: str
     description: str
     location: str
     completed: bool = False
+
+class Task(TaskBase):
+    id: int
+    user_id: int
+
     model_config = ConfigDict(from_attributes=True)
 
-
-class Event(BaseModel):
-    id: int
+class EventBase(BaseModel):
     event_name: str
     location: str
     event_date: str
     event_time: str
+
+class Event(EventBase):
+    id: int
+    user_id: int
     model_config = ConfigDict(from_attributes=True)
 
-
-class User(BaseModel):
-    id: int
+class UserBase(BaseModel):
     name: str
     email: str
     password: str
 
+class User(UserBase):
+    id: int
+    model_config = ConfigDict(from_attributes=True)
 
-# class ShowUser(BaseModel):
-#     name: str
-#     email: str
-#     tasks: List[Task]
-#     events: List[Event]
-#     model_config = ConfigDict(from_attributes=True)
-#
-# class ShowTask(BaseModel):
-#     name: str
-#     email: str
-#     tasks: List[Task]
-#     model_config = ConfigDict(from_attributes=True)
-#
-# class ShowEvent(BaseModel):
-#     name: str
-#     email: str
-#     events: List[Event]
-#     model_config = ConfigDict(from_attributes=True)
 
 class Login(BaseModel):
     username: str
@@ -58,4 +46,4 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    email: str | None = None
+    username: str | None = None

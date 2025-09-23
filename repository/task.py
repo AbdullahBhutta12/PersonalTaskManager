@@ -7,12 +7,12 @@ from sqlalchemy.orm import Session
 
 
 
-def get_all(db: Session):
-    tasks = db.query(models.Task).all()
+def get_all(db: Session, current_user: schemas.User):
+    tasks = db.query(models.Task).filter(current_user.id == models.Task.user_id).all()
     return tasks
 
-def create(request: schemas.Task, db: Session, current_user: schemas.User):
-    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False, user_id=current_user)
+def create(request: schemas.TaskBase, db: Session, current_user: schemas.User):
+    new_task = models.Task(title=request.title, description=request.description, location=request.location, completed=False, user_id=current_user.id)
     db.add(new_task)
     db.commit()
     db.refresh(new_task)

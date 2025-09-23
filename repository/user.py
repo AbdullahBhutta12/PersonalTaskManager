@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 import schemas, models, helpers
 
 
-def create(request: schemas.User, db: Session):
+def create(request: schemas.UserBase, db: Session):
     new_user = models.User(name=request.name, email=request.email, password=helpers.bcrypt(request.password))
     db.add(new_user)
     db.commit()

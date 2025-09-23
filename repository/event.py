@@ -6,14 +6,14 @@ import models
 from sqlalchemy.orm import Session
 
 
-def get_all(db: Session):
-    events = db.query(models.Event).all()
+def get_all(db: Session, current_user: schemas.User):
+    events = db.query(models.Event).filter(current_user.id == models.Event.user_id).all()
     return events
 
 
-def create(request: schemas.Event, db: Session):
+def create(request: schemas.Event, db: Session, current_user: schemas.User):
     new_event = models.Event(event_name=request.event_name, location=request.location, event_date=request.event_date,
-                             event_time=request.event_time, user_id=1)
+                             event_time=request.event_time, user_id=current_user.id)
     db.add(new_event)
     db.commit()
     db.refresh(new_event)
