@@ -6,7 +6,7 @@ import schemas, models, helpers
 
 
 def create(request: schemas.UserBase, db: Session):
-    new_user = models.User(name=request.name, email=request.email, password=helpers.bcrypt(request.password))
+    new_user = models.User(username=request.username, email=request.email, password=helpers.bcrypt(request.password))
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
