@@ -19,3 +19,7 @@ def sign_up(request: schemas.UserBase, db: Session = Depends(database.get_db)):
 @router.get('/{user_id}', response_model=schemas.User)
 def get_user(user_id: int, db: Session = Depends(database.get_db)):
     return user.get_user(user_id, db)
+
+@router.get('/')
+def users(db: Session = Depends(database.get_db)):
+    return user.users(db)
