@@ -34,6 +34,7 @@ class User(Base):
     username = Column(String)
     email = Column(String)
     password = Column(String)
+    profile_image = Column(String)
 
     task = relationship("Task", back_populates="users")
     event = relationship("Event", back_populates="users")

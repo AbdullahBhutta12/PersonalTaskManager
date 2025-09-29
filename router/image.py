@@ -23,8 +23,4 @@ async def upload_image(file: UploadFile = File(...)):
 
     path = f"{IMAGEDIR}{files[random_index]}"
 
-    return FileResponse(path)
-    # return {"filename": file.filename}
-
-# @router.get('/get_image')
-# async def get_image():
+    return file.filename, FileResponse(path)

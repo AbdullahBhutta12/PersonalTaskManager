@@ -20,12 +20,12 @@ def get_all(db: Session = Depends(database.get_db), current_user: schemas.User =
 
 
 @router.post('/create_event', status_code=status.HTTP_201_CREATED)
-def create(request: schemas.Event, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+def create(request: schemas.EventBase, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return event.create(request, db, current_user)
 
 
 @router.put('/update_event/{event_id}')
-def update(event_id: int, request: schemas.Event, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+def update(event_id: int, request: schemas.EventBase, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return event.update(event_id, db, request)
 
 

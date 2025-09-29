@@ -38,6 +38,13 @@ class User(UserBase):
     id: int
     model_config = ConfigDict(from_attributes=True)
 
+class UserResponse(UserBase):
+    id: int
+    username: str
+    email: str
+    # profile_image: str | None = None
+    model_config = ConfigDict(from_attributes=True)
+
 
 class TokenData(BaseModel):
     id: int

@@ -11,7 +11,7 @@ def get_all(db: Session, current_user: schemas.User):
     return events
 
 
-def create(request: schemas.Event, db: Session, current_user: schemas.User):
+def create(request: schemas.EventBase, db: Session, current_user: schemas.User):
     new_event = models.Event(event_name=request.event_name, location=request.location, event_date=request.event_date,
                              event_time=request.event_time, user_id=current_user.id)
     db.add(new_event)
@@ -20,7 +20,7 @@ def create(request: schemas.Event, db: Session, current_user: schemas.User):
     return new_event
 
 
-def update(event_id: int, db: Session, request: schemas.Event):
+def update(event_id: int, db: Session, request: schemas.EventBase):
     events = db.query(models.Event).filter(event_id == models.Event.id)
     if not events.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Event with id {event_id} not found")
