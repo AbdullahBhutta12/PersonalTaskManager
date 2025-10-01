@@ -21,10 +21,8 @@ def create(username: str, email: str, password: str, profile_image: UploadFile, 
     return new_user
 
 
-# def get_user(user_id: int, db: Session):
-#     user = db.query(models.User).filter(user_id == models.User.id).first()
-#     if not user:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {user_id} not found")
+# def get_user(db: Session, current_user: schemas.User):
+#     user = db.query(models.User).filter(current_user.id == models.User.id).first()
 #     return user
 #
 #

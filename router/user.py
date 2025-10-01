@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, status, File, UploadFile, Form
 
-import schemas, database
+import schemas, database, oauth2
 from repository import user
 
 from sqlalchemy.orm import Session
@@ -22,9 +22,9 @@ def sign_up(username: str = Form(...),
     return user.create(username, email, password, profile_image, db)
 
 #
-# @router.get('/{user_id}', response_model=schemas.UserResponse)
-# def get_user(user_id: int, db: Session = Depends(database.get_db)):
-#     return user.get_user(user_id, db)
+# @router.get('/logout', response_model=schemas.UserResponse)
+# def get_user(db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+#     return user.get_user(db, current_user)
 #
 #
 # @router.get('/', response_model=List[schemas.UserResponse])
