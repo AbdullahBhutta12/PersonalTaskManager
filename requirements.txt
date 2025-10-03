@@ -5,3 +5,4 @@ sqlalchemy
 passlib
 argon2
 python-jose
+firebase-admin
