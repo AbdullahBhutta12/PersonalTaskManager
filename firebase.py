@@ -1,8 +1,9 @@
 import firebase_admin
 from firebase_admin import credentials, messaging
 
-cred = credentials.Certificate("firebase-key.json")
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    cred = credentials.Certificate("/home/abdullah-saeed/PycharmProjects/PersonalTaskManager/firebase-key.json")
+    firebase_admin.initialize_app(cred)
 
 def send_notification(token: str, title: str, body: str):
     message = messaging.Message(
@@ -14,5 +15,5 @@ def send_notification(token: str, title: str, body: str):
     )
 
     response = messaging.send(message)
-    return response
+    return {"status": "success", "message_id": response}
 

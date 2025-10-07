@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from firebase import send_notification
 
 router = APIRouter(
@@ -6,7 +6,7 @@ router = APIRouter(
     tags=["Notifications"]
 )
 
-@router.get('/send')
-def notification(token: str, title: str, body: str):
+@router.get('/send_notification')
+def notification(title: str, body: str, token: str):
     response = send_notification(token, title, body)
     return {"message": "Notification sent", "response": response}
