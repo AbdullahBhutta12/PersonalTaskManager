@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, BOOLEAN, ForeignKey
+from sqlalchemy import Column, Integer, String, BOOLEAN, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
 from database import Base
 
@@ -38,3 +39,9 @@ class User(Base):
 
     task = relationship("Task", back_populates="users")
     event = relationship("Event", back_populates="users")
+
+class DeviceToken(Base):
+    __tablename__ = "device_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    token = Column(String, unique=True)
+    platform = Column(DateTime(timezone=True), server_default=func.now())

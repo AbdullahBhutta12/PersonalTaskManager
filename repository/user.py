@@ -1,11 +1,11 @@
-from fastapi import HTTPException, status, UploadFile
+from fastapi import UploadFile
 from sqlalchemy.orm import Session
 import uuid, os, shutil
-import models, helpers, schemas
+import models, helpers
 from router.notification import send_notification
 
 IMAGEDIR = "/home/abdullah-saeed/PycharmProjects/Database_Images/"
-BASE_URL = "http://0.0.0.0:8000/images/"
+BASE_URL = "http://192.168.0.181:8000/images/"
 
 def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
     os.makedirs(IMAGEDIR, exist_ok=True)
@@ -28,14 +28,5 @@ def create(username: str, email: str, password: str, profile_image: UploadFile, 
     #     token=device_token
     # )
 
-    return {"Username":new_user.username, "Email": new_user.email, "Image url": image_url}
+    return new_user#{"Username":new_user.username, "Email": new_user.email, "Image url": image_url}
 
-
-# def get_user(db: Session, current_user: schemas.User):
-#     user = db.query(models.User).filter(current_user.id == models.User.id).first()
-#     return user
-#
-#
-# def users(db: Session):
-#     user = db.query(models.User).all()
-#     return user
