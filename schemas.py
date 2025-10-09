@@ -55,6 +55,6 @@ class TokenData(BaseModel):
 #     password: str
 #
 #
-# class Token(BaseModel):
-#     access_token: str
-#     token_type: str
+class TokenIn(BaseModel):
+    token: str
+    platform: str | None = None

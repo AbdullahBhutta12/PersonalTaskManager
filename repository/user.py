@@ -20,13 +20,13 @@ def create(username: str, email: str, password: str, profile_image: UploadFile, 
     db.commit()
     db.refresh(new_user)
 
-    # device_token = ""
-    #
-    # send_notification(
-    #     title="Welcome to Personal Task Manager",
-    #     body=f"Hi! {username} Your account is successfully created",
-    #     token=device_token
-    # )
+    device_token = ""
+
+    send_notification(
+        title="Welcome to Personal Task Manager",
+        body=f"Hi! {username} Your account is successfully created",
+        token=device_token
+    )
 
     return new_user#{"Username":new_user.username, "Email": new_user.email, "Image url": image_url}
 

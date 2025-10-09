@@ -1,7 +1,10 @@
+from http.client import HTTPException
+
 from fastapi import APIRouter, Depends, status, File, UploadFile, Form
 
-import schemas, database
+import schemas, database, oauth2
 from repository import user
+from repository import device_token
 
 from sqlalchemy.orm import Session
 
@@ -19,3 +22,9 @@ def sign_up(username: str = Form(...),
             db: Session = Depends(database.get_db)):
     return user.create(username, email, password, profile_image, db)
 
+@router.post('/save_device_token')
+def save_token(data: schemas.TokenIn, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+    if not data.token:
+        raise HTTPException(status_code=400, detail="Token required")
+    device_token.save_token(db, current_user.id, data.token, plat_form=data.platform)
+    return {"result": "Token saved"}
