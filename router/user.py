@@ -19,12 +19,13 @@ def sign_up(username: str = Form(...),
             email: str = Form(...),
             password: str = Form(...),
             profile_image: UploadFile = File(...),
+            device_token: str = Form(None),
             db: Session = Depends(database.get_db)):
-    return user.create(username, email, password, profile_image, db)
+    return user.create(username, email, password, profile_image, db, device_token)
 
-@router.post('/save_device_token')
-def save_token(data: schemas.TokenIn, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
-    if not data.token:
-        raise HTTPException(status_code=400, detail="Token required")
-    device_token.save_token(db, current_user.id, data.token, plat_form=data.platform)
-    return {"result": "Token saved"}
+# @router.post('/save-device-token')
+# def save_token(data: schemas.TokenIn, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+#     if not data.token:
+#         raise HTTPException(status_code=400, detail="Token required")
+#     device_token.save_token(db, current_user.id, data.token, platform=data.platform)
+#     return {"result": "Token saved"}
