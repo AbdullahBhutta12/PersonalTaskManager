@@ -2,6 +2,7 @@ from fastapi import HTTPException, status
 
 import schemas
 import models
+from router.notification import send_notification
 
 from sqlalchemy.orm import Session
 
@@ -16,6 +17,16 @@ def create(request: schemas.TaskBase, db: Session, current_user: schemas.User):
     db.add(new_task)
     db.commit()
     db.refresh(new_task)
+    #
+    # if current_user.token:
+    #     try:
+    #         send_notification(
+    #             title="Welcome to Personal Task Manager",
+    #             body=f"Hi! {current_user.username} Your task is successfully added",
+    #             token=current_user.token
+    #         )
+    #     except Exception as e:
+    #         print("Notification Error", e)
     return new_task
 
 def update(task_id: int, db: Session, completed: bool):

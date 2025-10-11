@@ -57,4 +57,4 @@ class TokenData(BaseModel):
 #
 class TokenIn(BaseModel):
     token: str
-    platform: str | None = None
+

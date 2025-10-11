@@ -36,18 +36,17 @@ class User(Base):
     email = Column(String)
     password = Column(String)
     profile_image = Column(String)
-    device_token = Column(String, nullable=True)
 
     task = relationship("Task", back_populates="users")
     event = relationship("Event", back_populates="users")
-    # device_tokens = relationship("DeviceToken", back_populates="users")
+    device_tokens = relationship("DeviceToken", back_populates="users")
 
-# class DeviceToken(Base):
-#     __tablename__ = "device_tokens"
-#     id = Column(Integer, primary_key=True, index=True)
-#     token = Column(String, unique=True)
-#     platform = Column(String)
-#     created_at = Column(DateTime(timezone=True), server_default=func.now())
-#     user_id = Column(Integer, ForeignKey("users.id"))
-#
-#     users = relationship("User", back_populates="device_tokens")#, cascade="all, delete-orphan, single_parent=True")
+class DeviceToken(Base):
+    __tablename__ = "device_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    token = Column(String, unique=True)
+    # platform = Column(String)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    users = relationship("User", back_populates="device_tokens")#, cascade="all, delete-orphan, single_parent=True")
