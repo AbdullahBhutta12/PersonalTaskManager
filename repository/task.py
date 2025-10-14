@@ -17,16 +17,18 @@ def create(request: schemas.TaskBase, db: Session, current_user: schemas.User):
     db.add(new_task)
     db.commit()
     db.refresh(new_task)
-    #
-    # if current_user.token:
-    #     try:
-    #         send_notification(
-    #             title="Welcome to Personal Task Manager",
-    #             body=f"Hi! {current_user.username} Your task is successfully added",
-    #             token=current_user.token
-    #         )
-    #     except Exception as e:
-    #         print("Notification Error", e)
+    user_device = db.query(models.DeviceToken).filter(current_user.id == models.DeviceToken.user_id).first()#order_by(models.DeviceToken.created_at.desc()).first()
+    print(f"filtered data: {user_device}")
+    if user_device:
+        print(f" device token: {user_device.token}")
+        try:
+            send_notification(
+                title="Welcome to Personal Task Manager",
+                body=f"Hi! {current_user.username} Your task is successfully added",
+                token=user_device.token
+            )
+        except Exception as e:
+            print("Notification Error", e)
     return new_task
 
 def update(task_id: int, db: Session, completed: bool):
