@@ -2,10 +2,10 @@ from fastapi import UploadFile
 from sqlalchemy.orm import Session
 import uuid, os, shutil
 import models, helpers
-from router.notification import send_notification
 
 IMAGEDIR = "/home/abdullah-saeed/PycharmProjects/Database_Images/"
 BASE_URL = "http://192.168.0.181:8000/images/"
+
 
 def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
     os.makedirs(IMAGEDIR, exist_ok=True)
@@ -19,16 +19,5 @@ def create(username: str, email: str, password: str, profile_image: UploadFile, 
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    #
-    # if device_token:
-    #     try:
-    #         send_notification(
-    #             title="Welcome to Personal Task Manager",
-    #             body=f"Hi! {new_user.username} Your account is successfully created",
-    #             token=device_token
-    #         )
-    #     except Exception as e:
-    #         print("Notification Error", e)
 
     return new_user
-

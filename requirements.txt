@@ -3,6 +3,6 @@ fastapi
 uvicorn
 sqlalchemy
 passlib
-argon2
+argon2-cffi
 python-jose
 firebase-admin
