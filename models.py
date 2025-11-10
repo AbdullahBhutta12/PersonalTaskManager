@@ -36,17 +36,31 @@ class User(Base):
     email = Column(String, unique=True)
     password = Column(String)
     profile_image = Column(String)
+    is_verified = Column(BOOLEAN, default=False)
 
     task = relationship("Task", back_populates="users")
     event = relationship("Event", back_populates="users")
     device_tokens = relationship("DeviceToken", back_populates="users")
+    emails = relationship("Emails", back_populates="users")
+
 
 class DeviceToken(Base):
     __tablename__ = "device_tokens"
     id = Column(Integer, primary_key=True, index=True)
     token = Column(String, unique=True)
-    # platform = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    users = relationship("User", back_populates="device_tokens")#, cascade="all, delete-orphan, single_parent=True")
+    users = relationship("User", back_populates="device_tokens")
+
+
+class Emails(Base):
+    __tablename__ = "emails"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String)
+    verification_code = Column(String, nullable=True)
+    expiration_time = Column(DateTime(timezone=True), server_default=func.now())
+    is_verified = Column(BOOLEAN, default=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    users = relationship("User", back_populates="emails")

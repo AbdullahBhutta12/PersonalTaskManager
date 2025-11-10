@@ -1,9 +1,9 @@
 from fastapi import HTTPException, status
+from sqlalchemy.orm import Session
 
 import schemas
 import models
-
-from sqlalchemy.orm import Session
+from firebase import send_notification_others, send_notification
 
 
 def get_all(db: Session, current_user: schemas.User):
@@ -17,6 +17,17 @@ def create(request: schemas.EventBase, db: Session, current_user: schemas.User):
     db.add(new_event)
     db.commit()
     db.refresh(new_event)
+    user_device = db.query(models.DeviceToken).filter(current_user.id == models.DeviceToken.user_id).first()
+    if user_device:
+        try:
+            send_notification(
+                title=f"New Upcoming Event: {new_event.event_name}",
+                body=f"At: {new_event.location}  On: {new_event.event_date}",
+                token=user_device.token
+            )
+        except Exception as e:
+            print("Notification Error", e)
+
     return new_event
 
 
@@ -32,7 +43,6 @@ def update(event_id: int, db: Session, request: schemas.EventBase):
             "event_time": request.event_time
         }, synchronize_session=False)
     db.commit()
-    # db.refresh(events)
     return "Event updated"
 
 

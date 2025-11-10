@@ -1,4 +1,5 @@
 from pydantic import BaseModel, ConfigDict
+from datetime import datetime
 
 
 class TaskBase(BaseModel):
@@ -38,6 +39,7 @@ class User(UserBase):
     id: int
     model_config = ConfigDict(from_attributes=True)
 
+
 class UserResponse(BaseModel):
     id: int
     username: str
@@ -50,6 +52,7 @@ class TokenData(BaseModel):
     id: int
     username: str | None = None
 
+
 # class Login(BaseModel):
 #     username: str
 #     password: str
@@ -58,3 +61,13 @@ class TokenData(BaseModel):
 class TokenIn(BaseModel):
     token: str
 
+
+class Emails(BaseModel):
+    email: str
+
+
+class VerifyEmail(Emails):
+    email: str
+    verification_code: str
+    # expiration_time: datetime
+    model_config = ConfigDict(from_attributes=True)

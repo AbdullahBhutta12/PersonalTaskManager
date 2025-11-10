@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 
 import schemas
 import models
-from router.notification import send_notification_others#, send_notification
+from firebase import send_notification_others, send_notification
 
 from sqlalchemy.orm import Session
 
@@ -21,8 +21,8 @@ def create(request: schemas.TaskBase, db: Session, current_user: schemas.User):
 
     send_notification_others(
         db=db,
-        title="Welcome to Personal Task Manager",
-        body=f"Hi! {current_user.username} Your task is successfully added",
+        title=f"{new_task.title}",
+        body=f"{new_task.description}",
         current_user=current_user.id
     )
     return new_task
@@ -52,13 +52,12 @@ def delete(task_id: int, db: Session):
 #     db.commit()
 #     db.refresh(new_task)
 #     user_device = db.query(models.DeviceToken).filter(current_user.id == models.DeviceToken.user_id).first()#order_by(models.DeviceToken.created_at.desc()).first()
-#     print(f"filtered data: {user_device}")
 #     if user_device:
 #         print(f" device token: {user_device.token}")
 #         try:
 #             send_notification(
-#                 title="Welcome to Personal Task Manager",
-#                 body=f"Hi! {current_user.username} Your task is successfully added",
+#                 title=f"{new_task.title}",
+#                 body=f"{new_task.description}",
 #                 token=user_device.token
 #             )
 #         except Exception as e:

@@ -32,9 +32,3 @@ def update(task_id: int, completed: bool, db: Session = Depends(database.get_db)
 def delete(task_id: int, db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return task.delete(task_id, db)
 
-# //  POST http://0.0.0.0:8000/tasks/create_task
-# body
-# {
-#   "title": "test",
-#   "location": "string"
-# }
