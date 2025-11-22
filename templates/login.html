@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family: Arial; padding:24px; max-width:500px; margin:auto}
+        label{display: block;margin-top: 12px}
+        input,button{width: 100%; padding: 10px; margin-top :6px}
+    </style>
+</head>
+<body style="background-image: url('/background.jpeg'); background-repeat: no-repeat; background-size: cover;">
+<h1>Login</h1>
+
+<form action="http://0.0.0.0:8000/Authentication/login" method="post">
+    <label for="email">Email</label>
+    <input type="text" id="email" required placeholder="you@example.com">
+    <br>
+    <br>
+    <label for="password">Password</label>
+    <input type="password" id="password" required placeholder="password">
+    <br>
+    <button type="submit" style="margin-top:16px">Login</button>
+    <p class="hint">No account? <a href="send_code.html">Sign up</a></p>
+</form>
+
+</body>
+</html>

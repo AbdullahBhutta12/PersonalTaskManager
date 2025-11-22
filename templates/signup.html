@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-up</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family: Arial, sans-serif; padding: 24px; max-width:600px; margin:auto;}
+        label{display:block; margin-top:12px; font-weight:600;}
+        input, button{width:100%; padding:10px; margin-top:6px; box-sizing:border-box;}
+        .hint{font-size:0.9rem; color:#666; margin-top:8px;}
+    </style>
+</head>
+<body style="background-image: url('/background.jpeg'); background-repeat: no-repeat; background-size: cover;">
+<h1>Create Account</h1>
+<hr>
+<h2><span style="color:green">Sign-up</span></h2>
+
+<form action="http://0.0.0.0:8000/user/sign_up" method="post" enctype="multipart/form-data">
+    <label for="username">Username</label>
+    <input type="text" id="username" required placeholder="username">
+    <br>
+    <br>
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required>
+    <br>
+    <br>
+    <label for="password">Password</label>
+    <input type="password" id="password" minlength="6" maxlength="16" required placeholder="password">
+    <br>
+    <br>
+    <label for="file">Add Photo</label>
+    <input type="file" id="file" accept="image/png, image/jpeg" required alt="">
+    <br>
+    <br>
+    <input type="submit">
+    <input type="reset">
+</form>
+
+<p class="hint">Already have account? <a href="login.html">Log-in</a></p>
+</body>
+</html>

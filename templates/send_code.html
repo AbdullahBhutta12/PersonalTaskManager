@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Send OTP</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family:Arial;margin:24px auto;max-width:600px;padding:12px}
+        label{display:block;margin-top:12px;font-weight:600}
+        input,button{width:100%;padding:10px;margin-top:6px}
+    </style>
+</head>
+<body style="background-image: url('/Web background.jpeg'); background-repeat: no-repeat; background-size: cover;">
+<h1>Send Verification Code</h1>
+<form action="http://0.0.0.0:8000/user/send-verification-code" method="post">
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    <button type="submit">Send Verification Code</button>
+</form>
+<br>
+<a href="/templates/verify.html">
+    <button style="font-size:15px; border-radius:5px;">Next</button>
+</a>
+</body>
+</html>
+
