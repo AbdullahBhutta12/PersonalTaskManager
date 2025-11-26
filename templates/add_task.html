@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Task</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("/background.jpeg") no-repeat center/cover;height: 100vh;}
+        label{display: block;margin-top: 12px}
+        input,button{width: 100%; padding: 10px; margin-top :6px}
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<h1>Add New Task</h1>
+
+<form action="http://0.0.0.0:8000/auth/add-task" method="post">
+
+    <label>Task Title</label>
+    <input type="text" name="title" required>
+
+    <label>Description</label>
+    <textarea name="description" required></textarea>
+
+    <label>Location</label>
+    <textarea name="location" required></textarea>
+
+    <button type="submit">Create Task</button>
+</form>
+
+<a href="http://0.0.0.0:8000/auth/tasks">Back</a>
+
+</body>
+</html>

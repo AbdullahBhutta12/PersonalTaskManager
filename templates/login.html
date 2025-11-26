@@ -5,24 +5,22 @@
     <title>Login</title>
     <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial; padding:24px; max-width:500px; margin:auto}
+        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("/verify.jpeg") no-repeat center/cover;height: 100vh;}
         label{display: block;margin-top: 12px}
         input,button{width: 100%; padding: 10px; margin-top :6px}
     </style>
 </head>
-<body style="background-image: url('/background.jpeg'); background-repeat: no-repeat; background-size: cover;">
+<body>
 <h1>Login</h1>
 
-<form action="http://0.0.0.0:8000/Authentication/login" method="post">
-    <label for="email">Email</label>
-    <input type="text" id="email" required placeholder="you@example.com">
-    <br>
-    <br>
-    <label for="password">Password</label>
-    <input type="password" id="password" required placeholder="password">
-    <br>
-    <button type="submit" style="margin-top:16px">Login</button>
-    <p class="hint">No account? <a href="send_code.html">Sign up</a></p>
+<form action="http://0.0.0.0:8000/auth/login" method="post">
+    <label>Email</label>
+    <input type="email" name="username" required placeholder="you@example.com">
+    <label>Password</label>
+    <input type="password" name="password" required placeholder="password">
+
+    <button type="submit">Login</button>
+    <p class="hint">No account? <a href="http://0.0.0.0:8000/auth/send-code">Sign up</a></p>
 </form>
 
 </body>
