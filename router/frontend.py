@@ -6,7 +6,6 @@ import requests
 import database
 import schemas
 from repository import user
-from router import authentication
 
 router = APIRouter(prefix="/auth", tags=["HTML Pages"])
 templates = Jinja2Templates(directory="templates")
@@ -82,15 +81,31 @@ def login_action(
     request: Request,
     email: str = Form(...),
     password: str = Form(...),
-    db: Session = Depends(database.get_db)
 ):
 
-    token = authentication.login(
-        request={"email": email, "password": password},
-        db=db
+    payload = {
+        "username": email,     # IMPORTANT
+        "password": password
+    }
+
+    response = requests.post(
+        "http://0.0.0.0:8000/login",
+        data=payload
     )
 
-    return RedirectResponse("/auth/home", status_code=303)
+    if response.status_code != 200:
+        return templates.TemplateResponse(
+            "login.html",
+            {"request": request, "error": "Invalid email or password"},
+            status_code=400
+        )
+
+    token = response.json().get("access_token")
+
+    redirect = RedirectResponse("/auth/dashboard", status_code=303)
+    redirect.set_cookie(key="access_token", value=token)
+
+    return redirect
 
 
 # Apis for home, profile and logout pages
@@ -185,3 +200,108 @@ def delete_task(task_id: int, request: Request):
     )
 
     return RedirectResponse("/auth/tasks", status_code=303)
+
+
+
+# APIS for Events
+
+
+
+@router.get("/events")
+def events_page(request: Request):
+    token = request.cookies.get("access_token")
+
+    response = requests.get(
+        "http://0.0.0.0:8000/events/",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+
+    events = response.json() if response.status_code == 200 else []
+
+    return templates.TemplateResponse("events.html", {"request": request, "events": events})
+
+
+@router.get("/add-event")
+def add_event_page(request: Request):
+    return templates.TemplateResponse("add_event.html", {"request": request})
+
+
+@router.post("/add-event")
+def add_event(
+    request: Request,
+    event_name: str = Form(...),
+    location: str = Form(...),
+    event_date: str = Form(...),
+    event_time: str = Form(...)
+):
+    token = request.cookies.get("access_token")
+
+    payload = {
+        "event_name": event_name,
+        "location": location,
+        "event_date": event_date,
+        "event_time": event_time
+    }
+
+    requests.post(
+        "http://0.0.0.0:8000/events/create_event",
+        json=payload,
+        headers={"Authorization": f"Bearer {token}"}
+    )
+
+    return RedirectResponse("/auth/events", status_code=303)
+
+
+@router.post("/edit-event/{event_id}")
+def edit_event_page(event_id: int, request: Request):
+    token = request.cookies.get("access_token")
+
+    response = requests.get(
+        "http://0.0.0.0:8000/events/",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+
+    events = response.json()
+
+    event = next((ev for ev in events if ev["id"] == event_id), None)
+
+    return templates.TemplateResponse("edit_event.html", {"request": request, "event": event})
+
+
+@router.post("/edit-event/{event_id}")
+def edit_event(
+    event_id: int,
+    request: Request,
+    event_name: str = Form(...),
+    location: str = Form(...),
+    event_date: str = Form(...),
+    event_time: str = Form(...)
+):
+    token = request.cookies.get("access_token")
+
+    payload = {
+        "event_name": event_name,
+        "location": location,
+        "event_date": event_date,
+        "event_time": event_time
+    }
+
+    requests.put(
+        f"http://0.0.0.0:8000/events/update_event/{event_id}",
+        json=payload,
+        headers={"Authorization": f"Bearer {token}"}
+    )
+
+    return RedirectResponse("/auth/events", status_code=303)
+
+
+@router.get("/delete-event/{event_id}")
+def delete_event(event_id: int, request: Request):
+    token = request.cookies.get("access_token")
+
+    requests.delete(
+        f"http://0.0.0.0:8000/events/delete_event/{event_id}",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+
+    return RedirectResponse("/auth/events", status_code=303)

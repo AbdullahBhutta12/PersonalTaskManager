@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Events</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family: Arial;padding:20px;background:#fafafa; background: url("/background.jpeg") no-repeat center/cover;}
+        .event-box{
+            background:white;padding:20px;margin-bottom:10px;border-radius:8px;
+            box-shadow:0 0 5px rgba(0,0,0,0.1)
+        }
+        a.button{
+            padding:7px 15px;background:#007bff;color:white;text-decoration:none;
+            border-radius:5px;margin-right:10px
+        }
+    </style>
+</head>
+<body>
+
+<h1>Your Events</h1>
+
+<a href="http://0.0.0.0:8000/auth/add-event" class="button">Add Event</a>
+<a href="http://0.0.0.0:8000/auth/dashboard" class="button" style="background:gray">Home</a>
+
+<hr>
+<br>
+
+{% for ev in events %}
+<div class="event-box">
+    <h3>{{ ev.event_name }}</h3>
+    <p><b>Location:</b> {{ ev.location }}</p>
+    <p><b>Date:</b> {{ ev.event_date }}</p>
+    <p><b>Time:</b> {{ ev.event_time }}</p>
+
+    <a href="http://0.0.0.0:8000/auth/edit-event/{{ ev.id }}" class="button">Edit</a>
+    <a href="http://0.0.0.0:8000/auth/delete-event/{{ ev.id }}" class="button" style="background:red">Delete</a>
+</div>
+{% endfor %}
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Dashboard</title>
+    <title>Personal Task Manager</title>
     <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
     <style>
         body{
@@ -12,9 +12,10 @@
             background: url("/background.jpeg")
                         no-repeat center center/cover;
             height: 100vh;
+            text-align: center;
         }
 
-        .navbar{
+        .top{
             background: #007bff;
             padding: 16px;
             color: white;
@@ -30,7 +31,7 @@
             padding: 24px;
         }
 
-        .card{
+        .welcome{
             background: white;
             padding: 20px;
             border-radius: 8px;
@@ -56,16 +57,36 @@
             background: #dc3545;
             color: white;
         }
+        .overlay{
+
+            height: 100vh;
+            padding-top: 120px;
+        }
+        a button{
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-tasks{
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-events{
+            background-color: #28a745;
+            color: white;
+        }
     </style>
 </head>
-<body style="background-image: url('/verify.jpeg'); background-repeat: no-repeat; background-size: cover;">
+<body>
 
-<div class="navbar">
-    <span style="font-size:24px;">My Dashboard</span>
+<div class="top">
+    <span style="font-size:24px;">Home</span>
 
     <div>
         <a href="http://0.0.0.0:8000/auth/profile">
-            <button class="btn btn-profile">Profile</button>
+            <button class="btn btn-profile">Edit Profile</button>
         </a>
         <a href="http://0.0.0.0:8000/auth/logout">
             <button class="btn btn-logout">Logout</button>
@@ -74,12 +95,20 @@
 </div>
 
 <div class="container">
-    <div class="card">
+    <div class="welcome">
         <h2>Welcome Back!</h2>
         <p>This is your personal dashboard. From here you can manage your tasks, update profile, and explore
             features.</p>
     </div>
 </div>
+<div class="overlay">
 
+    <a href="http://0.0.0.0:8000/auth/tasks">
+        <button class="btn-tasks">Tasks</button>
+    </a>
+    <a href="http://0.0.0.0:8000/auth/events">
+        <button class="btn-events">Events</button>
+    </a>
+</div>
 </body>
 </html>

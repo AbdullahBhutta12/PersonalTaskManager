@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Event</title>
+    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <style>
+        body{font-family: Arial;padding:20px;background: url("/background.jpeg") no-repeat center/cover;height: 100vh;}
+        input,button{width:100%;padding:10px;margin-top:10px}
+    </style>
+</head>
+<body>
+
+<h1>Edit Event</h1>
+
+<form action="http://0.0.0.0:8000/auth/edit-event/{{ event.id }}" method="post">
+
+    <label>Event Name</label>
+    <input type="text" name="event_name" value="{{ event.event_name }}" required>
+
+    <label>Location</label>
+    <input type="text" name="location" value="{{ event.location }}" required>
+
+    <label>Date</label>
+    <input type="text" name="event_date" value="{{ event.event_date }}" required>
+
+    <label>Time</label>
+    <input type="text" name="event_time" value="{{ event.event_time }}" required>
+
+    <button type="submit">Update Event</button>
+</form>
+
+</body>
+</html>
