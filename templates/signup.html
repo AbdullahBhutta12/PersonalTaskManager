@@ -3,35 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign-up</title>
-    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial, sans-serif; padding: 24px; max-width:600px; margin:auto;;background: url("/background.jpeg") no-repeat center/cover;height: 100vh;}
+        body{font-family: Arial, sans-serif; padding: 24px; max-width:600px; margin:auto;;background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;height: 100vh;}
+        .box { width:450px; margin:auto; background:#fff; padding:25px;
+               border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
         label{display:block; margin-top:12px; font-weight:600;}
         input, button{width:100%; padding:10px; margin-top:6px; box-sizing:border-box;}
         .hint{font-size:0.9rem; color:#666; margin-top:8px;}
+        button { width: 100%; padding: 10px; background: #28a745;color: white; border: none; margin-top: 15px; cursor: pointer;}
     </style>
 </head>
 <body>
+
+<div class="box">
 <h1>Create Account</h1>
 <hr>
 <h2><span style="color:green">Sign-up</span></h2>
 
 <form action="http://0.0.0.0:8000/auth/signup" method="post" enctype="multipart/form-data">
-    <label>Username:</label>
-    <input type="text" name="username" required placeholder="username">
 
-    <label>Email:</label>
-    <input type="email" name="email" required placeholder="you@example.com">
+    <label>Username:
+        <input type="text" name="username" required placeholder="username">
+    </label>
 
-    <label>Password:</label>
-    <input type="password" name="password" required placeholder="password">
+    <label>Email:
+        <input type="email" name="email" required placeholder="you@example.com">
+    </label>
 
-    <label>Profile Image:</label>
-    <input type="file" name="profile_image" required>
+    <label>Password:
+        <input type="password" name="password" required placeholder="password">
+    </label>
+
+    <label>Profile Image:
+        <input type="file" name="profile_image" required>
+    </label>
 
     <button type="submit">Create Account</button>
 </form>
 
 <p class="hint">Already have account? <a href="http://0.0.0.0:8000/auth/login">Log-in</a></p>
+</div>
 </body>
 </html>

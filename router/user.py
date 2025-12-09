@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status, File, UploadFile, Form
 from sqlalchemy.orm import Session
+from fastapi import BackgroundTasks
 
 import schemas, database, oauth2
 from repository import user
@@ -32,3 +33,8 @@ def verify_email(data: schemas.VerifyEmail, db: Session = Depends(database.get_d
 @router.post("/send-verification-code")
 def send_code(email: schemas.Emails, db: Session = Depends(database.get_db)):
     return user.send_code(email, db)
+
+
+@router.get('/profile', response_model=schemas.UserResponse)
+def get_user(db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return user.get_user(db, current_user)

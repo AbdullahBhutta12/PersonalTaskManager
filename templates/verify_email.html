@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
     <title>Verify Email</title>
-    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family:Arial;margin:24px auto;max-width:600px;padding:12px;background: url("/verify.jpeg") no-repeat center/cover;height: 100vh;}
-        label{display:block;margin-top:12px;font-weight:600}
-        input,button{width:100%;padding:10px;margin-top:6px}
+        body { background:#f4f4f4; font-family:Arial; padding:40px; background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover; height: 90vh;}
+        .box { width:350px; margin:auto; background:#fff; padding:25px;
+               border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
+        input { width:100%; padding:10px; margin-top:10px; }
+        button { width:100%; padding:10px; background:#28a745; color:white;
+                 border:none; margin-top:15px; cursor:pointer; }
+        .error { color:red; margin-top:10px; }
     </style>
 </head>
-
 <body>
-<h1>Verify Your Email</h1>
 
-<form action="http://0.0.0.0:8000/auth/verify" method="post">
-    <label>Email:</label>
-    <input type="email" name="email" required placeholder="you@example.com">
+<div class="box">
+    <h2>Verify OTP</h2>
 
-    <label>Verification Code:</label>
-    <input type="text" name="verification_code" required placeholder="6-digit OTP">
-    <p><small>(OTP will expire after 1 munit)</small></p>
+    <p>Email: <strong>{{ email }}</strong></p>
 
-    <button type="submit">Verify Email</button>
-    <p class="hint">Already verified? <a href="http://0.0.0.0:8000/auth/login">Log-in</a></p>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
 
-</form>
+    <form action="http://0.0.0.0:8000/auth/verify" method="post">
+
+        <input type="hidden" name="email" value="{{ email }}">
+
+        <label>Enter OTP
+            <input type="text" name="otp" placeholder="123456" required>
+        </label>
+
+        <button type="submit">Verify</button>
+    </form>
+</div>
 
 </body>
 </html>

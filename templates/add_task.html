@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <title>Add Task</title>
-    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("/background.jpeg") no-repeat center/cover;height: 100vh;}
+        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;height: 100vh;}
         label{display: block;margin-top: 12px}
         input,button{width: 100%; padding: 10px; margin-top :6px}
         input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
@@ -16,14 +16,17 @@
 
 <form action="http://0.0.0.0:8000/auth/add-task" method="post">
 
-    <label>Task Title</label>
-    <input type="text" name="title" required>
+    <label>Task Title
+        <input type="text" name="title" required>
+    </label>
 
-    <label>Description</label>
-    <textarea name="description" required></textarea>
+    <label>Description
+        <textarea name="description" required></textarea>
+    </label>
 
-    <label>Location</label>
-    <textarea name="location" required></textarea>
+    <label>Location
+        <textarea name="location" required></textarea>
+    </label>
 
     <button type="submit">Create Task</button>
 </form>

@@ -2,6 +2,7 @@ from fastapi import UploadFile, HTTPException
 from sqlalchemy.orm import Session
 import uuid, os, shutil, random
 from datetime import datetime, timedelta
+from fastapi import BackgroundTasks
 
 import models, helpers, schemas
 from repository import device_token
@@ -17,8 +18,11 @@ def create(username: str, email: str, password: str, profile_image: UploadFile, 
     with open(filepath, "wb") as buffer:
         shutil.copyfileobj(profile_image.file, buffer)
     image_url = BASE_URL + filename
-
-    existing_user = db.query(models.Emails.is_verified).filter(email == models.Emails.email).first()
+    already_user = db.query(models.User).filter(email == models.User.email).first()
+    if already_user:
+        raise HTTPException(status_code=409, detail="Email already exists!")
+    else:
+        existing_user = db.query(models.Emails.is_verified).filter(email == models.Emails.email).first()
 
     if existing_user:
         new_user = models.User(
@@ -73,6 +77,9 @@ def send_code(data: schemas.Emails, db: Session):
     helpers.send_verification_email(data.email, verification_code)
     return f"A verification code is sent to your email {data.email}"
 
+def get_user(db: Session, current_user: schemas.User):
+    user = db.query(models.User).filter(current_user.id == models.User.id).first()
+    return user
 # def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
 #     os.makedirs(IMAGEDIR, exist_ok=True)
 #     filename = f"{uuid.uuid4()}.jpg"

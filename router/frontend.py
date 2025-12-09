@@ -12,35 +12,40 @@ templates = Jinja2Templates(directory="templates")
 
 # Apis for sign-up and log-in
 
-
 @router.get("/send-code")
 def send_code_page(request: Request):
     return templates.TemplateResponse("send_code.html", {"request": request})
 
 
 @router.post("/send-code-html")
-def send_code_html(
+async def send_code_html(
+        request: Request,
         email: str = Form(...),
         db=Depends(database.get_db)
 ):
+
     data = schemas.Emails(email=email)
     user.send_code(data, db)
 
-    return RedirectResponse(url="/auth/verify", status_code=303)
+    return templates.TemplateResponse(
+        "verify_email.html",
+        {"request": request, "email": email}
+    )
 
 
 @router.get("/verify")
-def verify_email_page(request: Request):
-    return templates.TemplateResponse("verify_email.html", {"request": request})
+def verify_email_page(request: Request, email: str = ""):
+    return templates.TemplateResponse("verify_email.html", {"request": request, "email": email})
 
 
 @router.post("/verify")
 def verify_email_html(
+        request: Request,
         email: str = Form(...),
-        verification_code: str = Form(...),
+        otp: str = Form(...),
         db=Depends(database.get_db)
 ):
-    data = schemas.VerifyEmail(email=email, verification_code=verification_code)
+    data = schemas.VerifyEmail(email=email, verification_code=otp)
     user.verify_email(data, db)
 
     return RedirectResponse(url="/auth/signup", status_code=303)
@@ -123,9 +128,15 @@ def dashboard(request: Request):
     return templates.TemplateResponse("dashboard.html", {"request": request})
 
 
-@router.get("/profile")
+@router.get('/profile')
 def profile_page(request: Request):
-    return templates.TemplateResponse("profile.html", {"request": request})
+    token = request.cookies.get("access_token")
+    response = requests.get(
+        "http://0.0.0.0:8000/user/profile",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    profile = response.json()
+    return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
 
 
 @router.get("/logout")

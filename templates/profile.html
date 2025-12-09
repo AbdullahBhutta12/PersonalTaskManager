@@ -2,87 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your Profile</title>
-    <link rel="icon" type="image/jpeg" href="/Personal_Task_Manager.jpeg">
+    <title>My Profile</title>
+    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial;
-            background: #f4f4f4;
+            body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+        background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;
+         height: 90vh;
         }
-
-        .navbar{
-            background: #007bff;
-            padding: 16px;
-            color: white;
-            font-size: 24px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: white;
-            padding: 24px;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 16px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border-radius: 5px;
-            border: 1px solid #aaa;
-        }
-
-        .btn-save {
-            margin-top: 25px;
-            padding: 12px;
-            background: #28a745;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+    p{
+        line-height: 1.6;
+        color: #666;
+    }
     </style>
 </head>
 <body>
-
-<div class="navbar">
-    Your Profile
-</div>
-
 <div class="container">
+    <h1>My Profile</h1>
+    <hr>
+    {% if profile %}
+    <img src="{{ profile.profile_image }}" alt="profile" width="320">
+    <h2>{{ profile.username }}</h2>
+    <p><strong>Email:</strong> {{ profile.email }}</p>
 
-    <h2>Update Profile</h2>
-
-    <form action="http://0.0.0.0:8000/auth/dashboard" method="post" enctype="multipart/form-data">
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Your username" required>
-
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Your email" required>
-
-        <label>Profile Image</label>
-        <input type="file" name="profile_image">
-
-        <button type="submit" class="btn-save">Save Changes</button>
-    </form>
-
+    {% else %}
+    <h1>{{ error }}</h1>
+    <p>The requested user could not be found.</p>
+    {% endif %}
 </div>
-
 </body>
 </html>
