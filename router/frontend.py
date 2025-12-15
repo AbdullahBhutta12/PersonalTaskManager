@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Form, Depends, UploadFile, File
+from fastapi import APIRouter, Request, Form, Depends, UploadFile, File, Response, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
@@ -32,28 +32,63 @@ async def send_code_html(
         {"request": request, "email": email}
     )
 
-
+# @router.get("/verify")
+# def verify_email_page(request: Request, email: str = None):
+#     return templates.TemplateResponse(
+#         "verify_email.html",
+#         {"request": request, "email": email, "error": None}
+#     )
 @router.get("/verify")
 def verify_email_page(request: Request, email: str = ""):
     return templates.TemplateResponse("verify_email.html", {"request": request, "email": email})
-
 
 @router.post("/verify")
 def verify_email_html(
         request: Request,
         email: str = Form(...),
-        otp: str = Form(...),
+        verification_code: str = Form(...),
         db=Depends(database.get_db)
 ):
-    data = schemas.VerifyEmail(email=email, verification_code=otp)
-    user.verify_email(data, db)
+    data = schemas.VerifyEmail(email=email, verification_code=verification_code)
 
-    return RedirectResponse(url="/auth/signup", status_code=303)
+    try:
+        user.verify_email(data, db)
+        return RedirectResponse(url="/auth/signup", status_code=303)
+
+    except HTTPException as e:
+        return templates.TemplateResponse(
+            "verify_email.html",
+            {
+                "request": request,
+                "email": email,
+                "error": e.detail
+            }
+        )
+
+#
+#
+# @router.post("/verify")
+# def verify_email_html(
+#         request: Request,
+#         email: str = Form(...),
+#         otp: str = Form(...),
+#         db=Depends(database.get_db)
+# ):
+#     data = schemas.VerifyEmail(email=email, verification_code=otp)
+#     user.verify_email(data, db)
+#
+#     return RedirectResponse(url="/auth/signup", status_code=303)
 
 
+# @router.get("/signup")
+# def signup_page(request: Request):
+#     return templates.TemplateResponse("signup.html", {"request": request})
 @router.get("/signup")
 def signup_page(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request})
+    return templates.TemplateResponse(
+        "signup.html",
+        {"request": request, "error": None}
+    )
 
 
 @router.post("/signup")
@@ -65,15 +100,26 @@ def signup_action(
     profile_image: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
-    user.create(
-        username=username,
-        email=email,
-        password=password,
-        profile_image=profile_image,
-        db=db
-    )
+    try:
+        user.create(
+            username=username,
+            email=email,
+            password=password,
+            profile_image=profile_image,
+            db=db
+        )
 
-    return RedirectResponse(url="/auth/login", status_code=303)
+        return RedirectResponse(url="/auth/login", status_code=303)
+
+    except HTTPException as e:
+        # SAME signup page par error
+        return templates.TemplateResponse(
+            "signup.html",
+            {
+                "request": request,
+                "error": e.detail
+            }
+        )
 
 
 
@@ -120,16 +166,22 @@ def login_action(
 
 @router.get("/home")
 def home_page(request: Request):
+    if "access_token" not in request.cookies:   # <- copy this
+        return RedirectResponse(url="/auth/login")
     return templates.TemplateResponse("home.html", {"request": request})
 
 
 @router.get("/dashboard")
 def dashboard(request: Request):
+    if "access_token" not in request.cookies:   # <- copy this
+        return RedirectResponse(url="/auth/login")
     return templates.TemplateResponse("dashboard.html", {"request": request})
 
 
 @router.get('/profile')
 def profile_page(request: Request):
+    if "access_token" not in request.cookies:   # <- copy this
+        return RedirectResponse(url="/auth/login")
     token = request.cookies.get("access_token")
     response = requests.get(
         "http://0.0.0.0:8000/user/profile",
@@ -140,10 +192,13 @@ def profile_page(request: Request):
 
 
 @router.get("/logout")
-def logout_page(request: Request):
-    return templates.TemplateResponse("logout.html", {"request": request})
+def logout(request: Request):
+    request.session.clear()
 
+    response = RedirectResponse(url="/auth/login", status_code=303)
+    response.delete_cookie("access_token")
 
+    return response
 
 # Apis for tasks
 
@@ -173,6 +228,8 @@ def add_task_page(request: Request):
 @router.post("/add-task")
 def add_task(request: Request, title: str = Form(...), description: str = Form(...), location: str = Form(...)):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     payload = {
         "title": title,
@@ -192,6 +249,8 @@ def add_task(request: Request, title: str = Form(...), description: str = Form(.
 @router.get("/mark/{task_id}")
 def mark_done(task_id: int, request: Request):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     requests.put(
         f"http://0.0.0.0:8000/tasks/update_task/{task_id}?completed=true",
@@ -204,6 +263,8 @@ def mark_done(task_id: int, request: Request):
 @router.get("/delete/{task_id}")
 def delete_task(task_id: int, request: Request):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     requests.delete(
         f"http://0.0.0.0:8000/tasks/delete_task/{task_id}",
@@ -221,6 +282,8 @@ def delete_task(task_id: int, request: Request):
 @router.get("/events")
 def events_page(request: Request):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     response = requests.get(
         "http://0.0.0.0:8000/events/",
@@ -246,6 +309,8 @@ def add_event(
     event_time: str = Form(...)
 ):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     payload = {
         "event_name": event_name,
@@ -263,9 +328,11 @@ def add_event(
     return RedirectResponse("/auth/events", status_code=303)
 
 
-@router.post("/edit-event/{event_id}")
+@router.get("/edit-event/{event_id}")
 def edit_event_page(event_id: int, request: Request):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     response = requests.get(
         "http://0.0.0.0:8000/events/",
@@ -289,6 +356,8 @@ def edit_event(
     event_time: str = Form(...)
 ):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     payload = {
         "event_name": event_name,
@@ -309,6 +378,8 @@ def edit_event(
 @router.get("/delete-event/{event_id}")
 def delete_event(event_id: int, request: Request):
     token = request.cookies.get("access_token")
+    if not token:
+        return RedirectResponse("/auth/login", status_code=303)
 
     requests.delete(
         f"http://0.0.0.0:8000/events/delete_event/{event_id}",

@@ -12,37 +12,40 @@
         input, button{width:100%; padding:10px; margin-top:6px; box-sizing:border-box;}
         .hint{font-size:0.9rem; color:#666; margin-top:8px;}
         button { width: 100%; padding: 10px; background: #28a745;color: white; border: none; margin-top: 15px; cursor: pointer;}
+        .error { color:red; margin-top:10px; }
     </style>
 </head>
 <body>
 
 <div class="box">
-<h1>Create Account</h1>
-<hr>
-<h2><span style="color:green">Sign-up</span></h2>
+    <h1>Create Account</h1>
+    <hr>
+    <h2><span style="color:green">Sign-up</span></h2>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="http://0.0.0.0:8000/auth/signup" method="post" enctype="multipart/form-data">
 
-<form action="http://0.0.0.0:8000/auth/signup" method="post" enctype="multipart/form-data">
+        <label>Username:
+            <input type="text" name="username" required placeholder="username">
+        </label>
 
-    <label>Username:
-        <input type="text" name="username" required placeholder="username">
-    </label>
+        <label>Email:
+            <input type="email" name="email" required placeholder="you@example.com">
+        </label>
 
-    <label>Email:
-        <input type="email" name="email" required placeholder="you@example.com">
-    </label>
+        <label>Password:
+            <input type="password" name="password" required placeholder="password">
+        </label>
 
-    <label>Password:
-        <input type="password" name="password" required placeholder="password">
-    </label>
+        <label>Profile Image:
+            <input type="file" name="profile_image" required>
+        </label>
 
-    <label>Profile Image:
-        <input type="file" name="profile_image" required>
-    </label>
+        <button type="submit">Create Account</button>
+    </form>
 
-    <button type="submit">Create Account</button>
-</form>
-
-<p class="hint">Already have account? <a href="http://0.0.0.0:8000/auth/login">Log-in</a></p>
+    <p class="hint">Already have account? <a href="http://0.0.0.0:8000/auth/login">Log-in</a></p>
 </div>
 </body>
 </html>

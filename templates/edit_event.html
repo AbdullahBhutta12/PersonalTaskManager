@@ -2,36 +2,45 @@
 <html lang="en">
 <head>
     <title>Edit Event</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial;padding:20px;background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;height: 100vh;}
+        body{font-family: Arial;padding:20px; max-width:500px; margin:auto; background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;}
         input,button{width:100%;padding:10px;margin-top:10px}
+        a.button{
+            padding:7px 15px;background:#007bff;color:white;text-decoration:none;
+            border-radius:5px;margin-right:10px
+        }
     </style>
 </head>
 <body>
 
 <h1>Edit Event</h1>
-
+<hr>
 <form action="http://0.0.0.0:8000/auth/edit-event/{{ event.id }}" method="post">
 
     <label>Event Name
-        <input type="text" name="event_name" value="{{ event.event_name }}" required>
+        <input type="text" name="event_name" value="{{ event.event_name }}">
     </label>
 
     <label>Location
-        <input type="text" name="location" value="{{ event.location }}" required>
+        <input type="text" name="location" value="{{ event.location }}">
     </label>
 
     <label>Date
-        <input type="date" name="event_date" value="{{ event.event_date }}" required>
+        <input type="date" name="event_date" value="{{ event.event_date }}">
     </label>
 
     <label>Time
-        <input type="time" name="event_time" value="{{ event.event_time }}" required>
+        <input type="time" name="event_time" value="{{ event.event_time }}">
     </label>
 
     <button type="submit">Update Event</button>
 </form>
-
+<hr>
+<br>
+<a href="http://0.0.0.0:8000/auth/events" class="button" style="background:#36454F">Back</a>
 </body>
 </html>

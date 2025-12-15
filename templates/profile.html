@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <title>My Profile</title>
     <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
@@ -28,6 +31,22 @@
         line-height: 1.6;
         color: #666;
     }
+    a.button{
+            padding:7px 15px;background:#007bff;color:white;text-decoration:none;
+            border-radius:5px;margin-right:10px
+    }
+    .btn{
+            padding: 10px 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: 0.3s;
+    }
+    .btn-logout{
+        background: #dc3545;
+        color: white;
+    }
     </style>
 </head>
 <body>
@@ -43,6 +62,12 @@
     <h1>{{ error }}</h1>
     <p>The requested user could not be found.</p>
     {% endif %}
+    <a href="http://0.0.0.0:8000/auth/logout">
+            <button class="btn btn-logout">Logout</button>
+        </a>
+<hr>
+<br>
+<a href="http://0.0.0.0:8000/auth/dashboard" class="button" style="background:#36454F">Back</a>
 </div>
 </body>
 </html>

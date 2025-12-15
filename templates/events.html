@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <title>Events</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
     <style>
         body{font-family: Arial;padding:20px;background:#fafafa; background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover; height: 90vh;}
         .event-box{
-            background:white;padding:20px;margin-bottom:10px;border-radius:8px;
+            background:white;padding:10px;margin-bottom:10px;border-radius:8px;
             box-shadow:0 0 5px rgba(0,0,0,0.1)
         }
         a.button { padding: 8px 12px; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; }
@@ -29,7 +32,7 @@
     <p><b>Date:</b> {{ ev.event_date }}</p>
     <p><b>Time:</b> {{ ev.event_time }}</p>
 
-<!--    <a href="http://0.0.0.0:8000/auth/edit-event/{{ ev.id }}" class="button">Edit</a>-->
+    <a href="http://0.0.0.0:8000/auth/edit-event/{{ ev.id }}" class="button">Edit</a>
     <a href="http://0.0.0.0:8000/auth/delete-event/{{ ev.id }}" class="button" style="background:red">Delete</a>
 </div>
 {% endfor %}
