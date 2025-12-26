@@ -2,18 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.href = "/auth/login";
+            }
+        };
+    </script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <title>My Profile</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
     <style>
             body {
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: #f4f4f4;
-        background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;
-         height: 90vh;
+        background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover;
+        background-attachment: fixed;
+        min-height: 100vh;
         }
     .container {
         background-color: #fff;

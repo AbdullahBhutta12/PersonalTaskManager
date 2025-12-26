@@ -2,7 +2,12 @@ pydantic
 fastapi
 uvicorn
 sqlalchemy
-passlib
+passlib[bcrypt]
 argon2-cffi
 python-jose
 firebase-admin
+requests
+python-multipart
+jinja2
+python-jose
+itsdangerous

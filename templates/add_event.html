@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <title>Add Event</title>
+    <script>
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.href = "/auth/login";
+            }
+        };
+    </script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial;padding:20px; max-width:500px; margin:auto; background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover;}
+        body{font-family: Arial;padding:20px; max-width:500px; margin:auto; background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
         input,button{width:100%;padding:10px;margin-top:10px}
         a.button{
             padding:7px 15px;background:#007bff;color:white;text-decoration:none;

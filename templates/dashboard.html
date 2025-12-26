@@ -2,20 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.href = "/auth/login";
+            }
+        };
+    </script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <title>Home</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
     <style>
         body{
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center center/cover;
+            background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center center/cover;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-attachment: fixed;
         }
         .top{
             background: #007bff;
@@ -107,10 +115,10 @@
     <span>Home</span>
     <div>
         <a href="http://0.0.0.0:8000/auth/profile">
-            <button class="btn btn-profile">My Profile</button>
+            <button class="btn btn-profile">👤 My Profile</button>
         </a>
         <a href="http://0.0.0.0:8000/auth/logout">
-            <button class="btn btn-logout">Logout</button>
+            <button class="btn btn-logout">⏻️ Logout</button>
         </a>
     </div>
 </div>
@@ -122,11 +130,11 @@
     </div>
     <div class="action-buttons">
         <a href="http://0.0.0.0:8000/auth/tasks">
-            <button class="big-btn btn-tasks">Tasks</button>
+            <button class="big-btn btn-tasks">📝 Tasks</button>
         </a>
 
         <a href="http://0.0.0.0:8000/auth/events">
-            <button class="big-btn btn-events">Events</button>
+            <button class="big-btn btn-events">📅 Events</button>
         </a>
     </div>
 </div>

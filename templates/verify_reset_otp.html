@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <style>
+        body {
+            background: #f4f4f4;
+            font-family: Arial;
+            padding: 40px;
+            background: url("http://192.168.1.11:8000/images/background.jpeg")
+                        no-repeat center/cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .card {
+            width: 350px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .email {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 95%;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1e7e34;
+        }
+        .error{
+            color:#721c24;
+            background:#f8d7da;
+            border:1px solid #f5c6cb;
+            padding:10px;
+            border-radius:5px;
+            margin-bottom:10px;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Verify OTP</h2>
+
+    <div class="email">
+        Code sent to <strong>{{ email }}</strong>
+    </div>
+
+    {% if error %}
+    <div id="error-box" class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="http://0.0.0.0:8000/auth/verify-reset-otp" method="post">
+        <label>
+            <input type="text" name="otp" placeholder="Enter OTP" max="6" required>
+        </label>
+        <button type="submit">Verify</button>
+    </form>
+    <script>
+        setTimeout(() => {
+            const errorBox = document.getElementById("error-box");
+            if (errorBox) {
+                errorBox.style.transition = "opacity 0.5s";
+                errorBox.style.opacity = "0";
+                setTimeout(() => errorBox.remove(), 500);
+            }
+        }, 2000);
+    </script>
+</div>
+
+</body>
+</html>

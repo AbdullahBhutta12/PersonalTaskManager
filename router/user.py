@@ -38,3 +38,10 @@ def send_code(email: schemas.Emails, db: Session = Depends(database.get_db)):
 @router.get('/profile', response_model=schemas.UserResponse)
 def get_user(db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return user.get_user(db, current_user)
+
+@router.post("/reset-password")
+def reset_password(
+    data: schemas.ResetPassword,
+    db: Session = Depends(database.get_db)
+):
+    return user.reset_password(data, db)

@@ -3,15 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Verify Email</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.0.181:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
     <style>
-        body { background:#f4f4f4; font-family:Arial; padding:40px; background: url("http://192.168.0.181:8000/images/background.jpeg") no-repeat center/cover; height: 90vh;}
+        body { background:#f4f4f4; font-family:Arial; padding:40px; background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
         .box { width:350px; margin:auto; background:#fff; padding:25px;
                border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
         input { width:100%; padding:10px; margin-top:10px; }
         button { width:100%; padding:10px; background:#28a745; color:white;
                  border:none; margin-top:15px; cursor:pointer; }
-        .error { color:red; margin-top:10px; }
+        .email {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .error{
+            color:#721c24;
+            background:#f8d7da;
+            border:1px solid #f5c6cb;
+            padding:10px;
+            border-radius:5px;
+            margin-bottom:10px;
+            text-align:center;
+        }
     </style>
 </head>
 <body>
@@ -19,10 +33,14 @@
 <div class="box">
     <h2>Verify OTP</h2>
 
-    <p>Email: <strong>{{ email }}</strong></p>
+    <div class="email">
+        Code sent to <strong>{{ email }}</strong>
+    </div>
 
     {% if error %}
-    <p class="error">{{ error }}</p>
+    <div id="error-box" class="error">
+        {{ error }}
+    </div>
     {% endif %}
 
     <form action="http://0.0.0.0:8000/auth/verify" method="post">
@@ -35,6 +53,16 @@
 
         <button type="submit">Verify</button>
     </form>
+    <script>
+        setTimeout(() => {
+            const errorBox = document.getElementById("error-box");
+            if (errorBox) {
+                errorBox.style.transition = "opacity 0.5s";
+                errorBox.style.opacity = "0";
+                setTimeout(() => errorBox.remove(), 500);
+            }
+        }, 2000);
+    </script>
 </div>
 
 </body>

@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -17,3 +18,11 @@ app.include_router(event.router)
 app.include_router(user.router)
 app.include_router(frontend.router)
 
+
+@app.middleware("http")
+async def no_cache_middleware(request: Request, call_next):
+    response: Response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response

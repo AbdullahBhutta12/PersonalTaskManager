@@ -53,11 +53,6 @@ class TokenData(BaseModel):
     username: str | None = None
 
 
-# class Login(BaseModel):
-#     username: str
-#     password: str
-#
-#
 class TokenIn(BaseModel):
     token: str
 
@@ -71,3 +66,8 @@ class VerifyEmail(Emails):
     verification_code: str
     # expiration_time: datetime
     model_config = ConfigDict(from_attributes=True)
+
+
+class ResetPassword(BaseModel):
+    email: str
+    new_password: str

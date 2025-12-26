@@ -8,7 +8,7 @@ import models, helpers, schemas
 from repository import device_token
 
 IMAGEDIR = "/home/abdullah-saeed/PycharmProjects/Database_Images/"
-BASE_URL = "http://192.168.0.181:8000/images/"
+BASE_URL = "http://192.168.1.11:8000/images/"
 
 
 def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
@@ -80,6 +80,17 @@ def send_code(data: schemas.Emails, db: Session):
 def get_user(db: Session, current_user: schemas.User):
     user = db.query(models.User).filter(current_user.id == models.User.id).first()
     return user
+
+def reset_password(data: schemas.ResetPassword, db: Session):
+    user = db.query(models.User).filter(models.User.email == data.email).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.password = helpers.bcrypt(data.new_password)
+    db.commit()
+
+    return {"message": "Password reset successful"}
 # def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
 #     os.makedirs(IMAGEDIR, exist_ok=True)
 #     filename = f"{uuid.uuid4()}.jpg"
