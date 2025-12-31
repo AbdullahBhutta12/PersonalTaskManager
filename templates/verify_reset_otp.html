@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Verify OTP</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
         body {
             background: #f4f4f4;
             font-family: Arial;
             padding: 40px;
-            background: url("http://192.168.1.11:8000/images/background.jpeg")
+            background: url("/images/background.jpeg")
                         no-repeat center/cover;
             background-attachment: fixed;
             min-height: 100vh;
@@ -82,7 +82,7 @@
     </div>
     {% endif %}
 
-    <form action="http://0.0.0.0:8000/auth/verify-reset-otp" method="post">
+    <form action="/auth/verify-reset-otp" method="post">
         <label>
             <input type="text" name="otp" placeholder="Enter OTP" max="6" required>
         </label>

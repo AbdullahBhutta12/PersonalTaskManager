@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign-up</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial, sans-serif; padding: 24px; max-width:600px; margin:auto;background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
+        body{font-family: Arial, sans-serif; padding: 24px; max-width:600px; margin:auto;background: url("/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
         .box { width:450px; margin:auto; background:#fff; padding:25px;
                border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
         label{display:block; margin-top:12px; font-weight:600;}
@@ -34,7 +34,7 @@
         {{ error }}
     </div>
     {% endif %}
-    <form action="http://0.0.0.0:8000/auth/signup" method="post" enctype="multipart/form-data">
+    <form action="/auth/signup" method="post" enctype="multipart/form-data">
 
         <label>Username:
             <input type="text" name="username" required placeholder="username">
@@ -55,7 +55,7 @@
         <button type="submit">Create Account</button>
     </form>
 
-    <p class="hint">Already have account? <a href="http://0.0.0.0:8000/auth/login">Log-in</a></p>
+    <p class="hint">Already have account? <a href="/auth/login">Log-in</a></p>
     <script>
         setTimeout(() => {
             const errorBox = document.getElementById("error-box");

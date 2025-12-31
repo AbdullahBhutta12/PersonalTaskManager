@@ -13,13 +13,13 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
 
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
 
     <style>
         body {
             font-family: Arial;
             margin: 30px;
-            background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover;
+            background: url("/images/background.jpeg") no-repeat center/cover;
             background-attachment: fixed;
             min-height: 100vh;
         }
@@ -51,8 +51,8 @@
 
 <h1>Your Tasks</h1>
 
-<a href="http://0.0.0.0:8000/auth/add-task" class="button">Add Task</a>
-<a href="http://0.0.0.0:8000/auth/dashboard" class="button">Home</a>
+<a href="/auth/add-task" class="button">Add Task</a>
+<a href="/auth/dashboard" class="button">Home</a>
 
 <hr>
 
@@ -62,11 +62,11 @@
 {% if pending_tasks %}
     {% for task in pending_tasks %}
     <div class="task-box">
-        <h3>{{ task.title }}</h3>
+        <h3>📝 {{ task.title }}</h3>
         <p>{{ task.description }}</p>
 
-        <a href="http://0.0.0.0:8000/auth/mark/{{ task.id }}" class="button">Mark as Done</a>
-        <a href="http://0.0.0.0:8000/auth/delete/{{ task.id }}" class="button danger">Delete</a>
+        <a href="/auth/mark/{{ task.id }}" class="button">Mark as Done</a>
+        <a href="/auth/delete/{{ task.id }}" class="button danger">Delete</a>
     </div>
     {% endfor %}
 {% else %}
@@ -85,7 +85,7 @@
         <p>{{ task.description }}</p>
         <strong style="color: green;">Completed ✔</strong>
         <br><br>
-        <a href="http://0.0.0.0:8000/auth/delete/{{ task.id }}" class="button danger">Delete</a>
+        <a href="/auth/delete/{{ task.id }}" class="button danger">Delete</a>
     </div>
     {% endfor %}
 {% else %}

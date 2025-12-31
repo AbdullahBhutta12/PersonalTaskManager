@@ -13,13 +13,13 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <title>My Profile</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
             body {
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: #f4f4f4;
-        background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover;
+        background: url("/images/background.jpeg") no-repeat center/cover;
         background-attachment: fixed;
         min-height: 100vh;
         }
@@ -70,12 +70,12 @@
     <h1>{{ error }}</h1>
     <p>The requested user could not be found.</p>
     {% endif %}
-    <a href="http://0.0.0.0:8000/auth/logout">
+    <a href="/auth/logout">
             <button class="btn btn-logout">Logout</button>
         </a>
 <hr>
 <br>
-<a href="http://0.0.0.0:8000/auth/dashboard" class="button" style="background:#36454F">Back</a>
+<a href="/auth/dashboard" class="button" style="background:#36454F">Back</a>
 </div>
 </body>
 </html>

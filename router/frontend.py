@@ -119,7 +119,7 @@ def login_action(
     }
 
     response = requests.post(
-        "http://0.0.0.0:8000/login",
+        "http://localhost:8000/login",
         data=payload
     )
 
@@ -154,7 +154,7 @@ def forgot_password_action(
 ):
     try:
         r = requests.post(
-            "http://0.0.0.0:8000/user/send-verification-code",
+            "http://localhost:8000/user/send-verification-code",
             json={"email": email},
             timeout=5
         )
@@ -210,7 +210,7 @@ def verify_reset_otp_action(
 
     try:
         r = requests.post(
-            "http://0.0.0.0:8000/user/verify-email",
+            "http://localhost:8000/user/verify-email",
             json={
                 "email": email,
                 "verification_code": otp
@@ -266,7 +266,7 @@ def reset_password_action(
 
     try:
         r = requests.post(
-            "http://0.0.0.0:8000/user/reset-password",
+            "http://localhost:8000/user/reset-password",
             json={
                 "email": email,
                 "new_password": new_password
@@ -321,7 +321,7 @@ def profile_page(request: Request):
         return RedirectResponse(url="/auth/login")
     token = request.cookies.get("access_token")
     response = requests.get(
-        "http://0.0.0.0:8000/user/profile",
+        "http://localhost:8000/user/profile",
         headers={"Authorization": f"Bearer {token}"}
     )
     profile = response.json()
@@ -347,7 +347,7 @@ def tasks_page(request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     response = requests.get(
-        "http://0.0.0.0:8000/tasks/",
+        "http://localhost:8000/tasks/",
         headers={"Authorization": f"Bearer {token}"}
     )
 
@@ -384,7 +384,7 @@ def add_task(request: Request, title: str = Form(...), description: str = Form(.
     }
 
     requests.post(
-        f"http://0.0.0.0:8000/tasks/create_task",
+        f"http://localhost:8000/tasks/create_task",
         json=payload,
         headers={"Authorization": f"Bearer {token}"}
     )
@@ -399,7 +399,7 @@ def mark_done(task_id: int, request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     requests.put(
-        f"http://0.0.0.0:8000/tasks/update_task/{task_id}?completed=true",
+        f"http://localhost:8000/tasks/update_task/{task_id}?completed=true",
         headers={"Authorization": f"Bearer {token}"}
     )
 
@@ -413,7 +413,7 @@ def delete_task(task_id: int, request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     requests.delete(
-        f"http://0.0.0.0:8000/tasks/delete_task/{task_id}",
+        f"http://localhost:8000/tasks/delete_task/{task_id}",
         headers={"Authorization": f"Bearer {token}"}
     )
 
@@ -430,7 +430,7 @@ def events_page(request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     response = requests.get(
-        "http://0.0.0.0:8000/events/",
+        "http://localhost:8000/events/",
         headers={"Authorization": f"Bearer {token}"}
     )
 
@@ -487,7 +487,7 @@ def add_event(
     }
 
     requests.post(
-        "http://0.0.0.0:8000/events/create_event",
+        "http://localhost:8000/events/create_event",
         json=payload,
         headers={"Authorization": f"Bearer {token}"}
     )
@@ -502,7 +502,7 @@ def edit_event_page(event_id: int, request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     response = requests.get(
-        "http://0.0.0.0:8000/events/",
+        "http://localhost:8000/events/",
         headers={"Authorization": f"Bearer {token}"}
     )
 
@@ -534,7 +534,7 @@ def edit_event(
     }
 
     requests.put(
-        f"http://0.0.0.0:8000/events/update_event/{event_id}",
+        f"http://localhost:8000/events/update_event/{event_id}",
         json=payload,
         headers={"Authorization": f"Bearer {token}"}
     )
@@ -549,7 +549,7 @@ def delete_event(event_id: int, request: Request):
         return RedirectResponse("/auth/login", status_code=303)
 
     requests.delete(
-        f"http://0.0.0.0:8000/events/delete_event/{event_id}",
+        f"http://localhost:8000/events/delete_event/{event_id}",
         headers={"Authorization": f"Bearer {token}"}
     )
 

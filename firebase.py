@@ -1,9 +1,14 @@
 import firebase_admin
 from firebase_admin import credentials, messaging
 import models
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FIREBASE_KEY_PATH = os.path.join(BASE_DIR, "firebase-key.json")
+
+cred = credentials.Certificate(FIREBASE_KEY_PATH)
 if not firebase_admin._apps:
-    cred = credentials.Certificate("/home/abdullah-saeed/PycharmProjects/PersonalTaskManager/firebase-key.json")
+    # cred = credentials.Certificate("/home/abdullah-saeed/PycharmProjects/PersonalTaskManager/firebase-key.json")
     firebase_admin.initialize_app(cred)
 
 

@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 6️⃣ Copy full project
 COPY . .
-
+RUN mkdir -p /app/images
 # 7️⃣ Expose port (FastAPI default)
 EXPOSE 8000
 

@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <title>Login</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
-        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("http://192.168.1.11:8000/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
+        body{font-family: Arial; padding:24px; max-width:500px; margin:auto;background: url("/images/background.jpeg") no-repeat center/cover; background-attachment: fixed; min-height: 100vh;}
         .box { width:450px; margin:auto; background:#fff; padding:25px;
                border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
         label{display:block; margin-top:12px; font-weight:600;}
@@ -30,7 +30,7 @@
         {{ error }}
     </div>
     {% endif %}
-    <form action="http://0.0.0.0:8000/auth/login" method="post">
+    <form action="/auth/login" method="post">
         <label>Email
             <input type="email" name="email" required placeholder="you@example.com">
         </label>
@@ -38,9 +38,9 @@
         <label>Password
             <input type="password" name="password" required placeholder="password">
         </label>
-        <p><a href="http://0.0.0.0:8000/auth/forgot-password"><small>Forgot password?</small></a></p>
+        <p><a href="/auth/forgot-password"><small>Forgot password?</small></a></p>
         <button type="submit">Login</button>
-        <p class="hint">No account? <a href="http://0.0.0.0:8000/auth/send-code">Sign up</a></p>
+        <p class="hint">No account? <a href="/auth/send-code">Sign up</a></p>
     </form>
     <script>
         setTimeout(() => {

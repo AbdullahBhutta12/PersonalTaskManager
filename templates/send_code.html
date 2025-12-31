@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Send Verification Code</title>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
         body {
             background: #f4f4f4;
             font-family: Arial;
             padding: 40px;
-            background: url("http://192.168.1.11:8000/images/background.jpeg")
+            background: url("/images/background.jpeg")
                         no-repeat center/cover;
             background-attachment: fixed;
             min-height: 100vh;
@@ -42,15 +42,15 @@
 <div class="box">
     <h2>Email Verification</h2>
     <br>
-    <form action="http://0.0.0.0:8000/auth/send-code-html" method="post">
+    <form action="/auth/send-code-html" method="post">
         <label>Enter your email
             <input type="email" name="email" placeholder="you@example.com" required>
         </label>
         <button type="submit">Send OTP</button>
     </form>
-    <a class="back" href="http://0.0.0.0:8000/auth/login">Back to Login</a>
+    <a class="back" href="/auth/login">Back to Login</a>
     <br><br>
-    <p class="hint">Email already verified? <a href="http://0.0.0.0:8000/auth/signup">Sign-up</a></p>
+    <p class="hint">Email already verified? <a href="/auth/signup">Sign-up</a></p>
 </div>
 
 </body>

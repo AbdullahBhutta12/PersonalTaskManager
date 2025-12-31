@@ -12,13 +12,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <link rel="icon" type="image/jpeg" href="http://192.168.1.11:8000/images/Personal_Task_Manager.jpeg">
+    <link rel="icon" type="image/jpeg" href="/images/Personal_Task_Manager.jpeg">
     <style>
         body {
         font-family: Arial;
         padding: 20px;
 
-        background-image: url("http://192.168.1.11:8000/images/background.jpeg");
+        background-image: url("/images/background.jpeg");
         background-repeat: no-repeat;
         background-position: center top;
         background-size: cover;
@@ -59,8 +59,8 @@
 
 <h1>Your Events</h1>
 
-<a href="http://0.0.0.0:8000/auth/add-event" class="button">Add Event</a>
-<a href="http://0.0.0.0:8000/auth/dashboard" class="button">Home</a>
+<a href="/auth/add-event" class="button">Add Event</a>
+<a href="/auth/dashboard" class="button">Home</a>
 
 <hr>
 <br>
@@ -77,10 +77,10 @@
             <p>{{ event.location }}</p>
             <p class="date">{{ event.event_date }} at {{ event.event_time }}</p>
 
-            <a href="http://0.0.0.0:8000/auth/edit-event/{{ event.id }}">
+            <a href="/auth/edit-event/{{ event.id }}">
                 <button class="btn btn-edit">Edit</button>
             </a>
-            <a href="http://0.0.0.0:8000/auth/delete-event/{{ event.id }}">
+            <a href="/auth/delete-event/{{ event.id }}">
                 <button class="btn btn-delete">Delete</button>
             </a>
         </div>
@@ -98,7 +98,7 @@
             <p>{{ event.location }}</p>
             <p class="date">{{ event.event_date }} at {{ event.event_time }}</p>
 
-            <a href="http://0.0.0.0:8000/auth/delete-event/{{ event.id }}">
+            <a href="/auth/delete-event/{{ event.id }}">
                 <button class="btn btn-delete">Delete</button>
             </a>
         </div>

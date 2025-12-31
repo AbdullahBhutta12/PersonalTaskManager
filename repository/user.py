@@ -7,9 +7,11 @@ from fastapi import BackgroundTasks
 import models, helpers, schemas
 from repository import device_token
 
-IMAGEDIR = "/home/abdullah-saeed/PycharmProjects/Database_Images/"
-BASE_URL = "http://192.168.1.11:8000/images/"
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IMAGEDIR = os.path.join(BASE_DIR, "images")
+
+BASE_URL = "/images/"
 
 def create(username: str, email: str, password: str, profile_image: UploadFile, db: Session):
     os.makedirs(IMAGEDIR, exist_ok=True)
